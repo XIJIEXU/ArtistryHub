@@ -1,47 +1,43 @@
-// Simple Deno backend with a static server and a custom route that
-// uses the OpenAI API to generate jokes.
+// main.ts
 
-// Import the the Application and Router classes from the Oak module
 import { Application, Router } from "https://deno.land/x/oak@v12.6.1/mod.ts";
-
-// Import server helper functions from the class library
 import { createExitSignal, staticServer } from "./shared/server.ts";
-
-// Import the promptGPT function from the class library
+import * as log from "./shared/logger.ts";
 import { promptGPT } from "./shared/openai.ts";
 
-import * as log from "./shared/logger.ts";
-
-// tell the shared library code to log everything
+// 设置日志级别
 log.setLogLevel(log.LogLevel.DEBUG);
-log.info("Starting webapp_starter");
+log.info("Starting ArtistryHub server");
 
-// Create an instance of the Application and Router classes
+// 创建应用和路由
 const app = new Application();
 const router = new Router();
 
-// Create a route to handle requests to /api/joke
-router.get("/api/joke", async (ctx) => {
-  // Get the topic from the query string `?topic=...`
-  const topic = ctx.request.url.searchParams.get("topic");
+// 汇率转换的 API 路由
+router.get("/api/inspiration", async (ctx) => {
+  const topic = ctx.request.url.searchParams.get("topic") || "art"; // 默认话题是“art”
+  log.info(`Received topic: ${topic}`);
 
-  // Log the request to the terminal
-  log.log("someone made a request to /api/joke", topic);
-
-  // Ask GPT to generate a joke about the topic
-  const joke = await promptGPT(`Tell me a brief joke about ${topic}.`);
-
-  // Send the joke back to the client
-  ctx.response.body = joke;
+  // 调用 ChatGPT API 生成灵感
+  const inspiration = await promptGPT(`Give me an artistic inspiration or idea related to "${topic}".`);
+  
+  // 返回灵感建议
+  ctx.response.body = { topic, inspiration };
 });
 
-// Tell the app to use the custom routes
+// 设置其他路由
+router.get("/api/test", (ctx) => {
+  log.info("Received test request");
+  ctx.response.body = "Try the ArtistryHub app!";
+});
+
+// 使用路由
 app.use(router.routes());
 app.use(router.allowedMethods());
 
-// Try serving undefined routes with static files
+// 提供静态文件服务
 app.use(staticServer);
 
-// Everything is set up, let's start the server
-log.info("\nListening on http://localhost:8000");
+// 启动服务器
+console.log("Listening on http://localhost:8000");
 await app.listen({ port: 8000, signal: createExitSignal() });

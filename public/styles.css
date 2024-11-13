@@ -1,61 +1,117 @@
+/* style.css */
+
+/* General body styles */
 body {
-    font-family: Arial, sans-serif;
-    font-weight: 100;
-    background-color: #213;
-    margin: 0;
-    padding: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: linear-gradient(135deg, #f1f8ff, #e6f2ff); /* Subtle gradient background */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
 }
 
+/* Container for the content */
 .container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
+  background-color: #ffffff;
+  padding: 40px 50px;
+  border-radius: 12px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  width: 100%;
+  max-width: 400px;
+  box-sizing: border-box;
+  transform: scale(1);
+  transition: transform 0.3s ease-in-out;
 }
 
-.input-group {
-    display: flex;
-    gap: 10px;
-    margin: 10px 0;
+/* Hover effect for the container */
+.container:hover {
+  transform: scale(1.05);
 }
 
 h1 {
-    color: #fff;
-    margin: 0;
+  font-size: 2.5rem;
+  color: #333;
+  margin-bottom: 20px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-transform: capitalize;
 }
 
-#topic {
-    padding: 10px;
-    width: 300px;
-    border: none;
-    border-radius: 4px;
+/* Input styles */
+input {
+  font-size: 1rem;
+  padding: 12px 16px;
+  margin-bottom: 20px;
+  width: 100%;
+  border: 2px solid #ccc;
+  border-radius: 8px;
+  outline: none;
+  box-sizing: border-box;
+  transition: border-color 0.3s ease;
 }
 
+input:focus {
+  border-color: #4CAF50;  /* Green border when focused */
+}
+
+/* Button styles */
 button {
-    padding: 10px 20px;
-    background-color: #90a;
-    color: #fff;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
+  padding: 15px 30px;
+  font-size: 1.2rem;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
 button:hover {
-    background-color: #c0d;
+  background-color: #45a049;
+  transform: translateY(-2px); /* Button hover effect */
 }
 
-#output {
-    font-size: 36px;
-    margin: 20px 0;
-    padding: 10px;
-    background-color: #0003;
-    border: 1px solid #000;
-    border-radius: 4px;
-    width: 600px;
-    color: white;
-    white-space: pre-wrap;
+button:active {
+  transform: translateY(0); /* Button press effect */
+}
+
+/* Inspiration text styles */
+#inspiration {
+  margin-top: 30px;
+  font-size: 1.4rem;
+  color: #333;
+  background-color: #f8f8f8;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  display: inline-block;
+  word-wrap: break-word;
+  max-width: 100%;
+}
+
+/* Media queries for responsive design */
+@media (max-width: 600px) {
+  .container {
+    padding: 30px 20px;
+  }
+
+  h1 {
+    font-size: 2rem;
+  }
+
+  button {
+    font-size: 1rem;
+    padding: 12px 24px;
+  }
+
+  input {
+    padding: 10px 12px;
+  }
+
+  #inspiration {
+    font-size: 1.2rem;
+    padding: 15px;
+  }
 }

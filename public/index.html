@@ -3,37 +3,29 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Joke</title>
-    <link rel="stylesheet" href="styles.css" />
+    <title>ArtistryHub - Artistic Inspiration</title>
+    <link rel="stylesheet" href="/style.css" />
   </head>
   <body>
     <div class="container">
-      <h1>I'll tell you a joke!</h1>
-      <div class="input-group">
-        <input id="topic" type="text" placeholder="Enter topic" />
-        <button id="get-joke">Get Joke</button>
-      </div>
-      <div id="output"></div>
+      <h1>Get Artistic Inspiration</h1>
+      <input type="text" id="topic" placeholder="Enter art topic" />
+      <button id="generateBtn">Generate Inspiration</button>
+      <div id="inspiration"></div>
     </div>
 
     <script>
-      // find the get-joke button on the page
-      const getJokeButton = document.querySelector("#get-joke");
+      document.getElementById("generateBtn").addEventListener("click", async () => {
+        const topic = document.getElementById("topic").value;
+        if (!topic) {
+          alert("Please enter a topic!");
+          return;
+        }
 
-      // add an event listener to the button to handle clicks
-      getJokeButton.addEventListener("click", async () => {
-        // show a loading message
-        document.querySelector("#output").textContent = "loading...";
+        const response = await fetch(`/api/inspiration?topic=${encodeURIComponent(topic)}`);
+        const data = await response.json();
 
-        // get the topic from the input field
-        const topic = document.querySelector("#topic").value;
-
-        // send a request to the server to get a joke, wait
-        const response = await fetch(`/api/joke?topic=${topic}`);
-        const joke = await response.text();
-
-        // display the joke on the page
-        document.querySelector("#output").textContent = joke;
+        document.getElementById("inspiration").innerText = `Inspiration: ${data.inspiration}`;
       });
     </script>
   </body>
