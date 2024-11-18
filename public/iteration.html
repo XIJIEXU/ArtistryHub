@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ArtistryHub - Artistic Inspiration</title>
+    <link rel="stylesheet" href="/style.css" />
+  </head>
+  <body>
+    <div class="container">
+      <h1>Get Inspiration</h1>
+      <input type="text" id="topic" placeholder="Enter art topic" />
+      <button id="generateBtn">Generate Inspiration</button>
+      <div id="inspiration"></div>
+    </div>
+
+    <script>
+      document.getElementById("generateBtn").addEventListener("click", async () => {
+        const topic = document.getElementById("topic").value;
+        if (!topic) {
+          alert("Please enter a topic!");
+          return;
+        }
+
+        const response = await fetch(`/api/inspiration?topic=${encodeURIComponent(topic)}`);
+        const data = await response.json();
+
+        document.getElementById("inspiration").innerText = `Inspiration: ${data.inspiration}`;
+      });
+    </script>
+  </body>
+</html>

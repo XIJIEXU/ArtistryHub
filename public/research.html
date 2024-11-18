@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Get Inspiration</title>
+    <link rel="stylesheet" href="/style.css" />
+  </head>
+  <body>
+    <div class="container">
+      <h1>Get Artistic Inspiration</h1>
+      <form id="inspirationForm">
+        <input type="text" id="topic" placeholder="Enter art topic" required />
+        <input type="text" id="style" placeholder="Enter art style" required />
+        <input type="text" id="media" placeholder="Enter media type" required />
+        <button type="submit">Generate Inspiration</button>
+      </form>
+      <div id="inspiration"></div>
+    </div>
+
+    <script>
+      document.getElementById("inspirationForm").addEventListener("submit", async (e) => {
+        e.preventDefault();
+        const topic = document.getElementById("topic").value;
+        const style = document.getElementById("style").value;
+        const media = document.getElementById("media").value;
+
+        if (!topic || !style || !media) {
+          alert("Please fill out all fields!");
+          return;
+        }
+
+        const response = await fetch(`/api/inspiration?topic=${encodeURIComponent(topic)}&style=${encodeURIComponent(style)}&media=${encodeURIComponent(media)}`);
+        const data = await response.json();
+
+        document.getElementById("inspiration").innerText = `Inspiration: ${data.inspiration}`;
+      });
+    </script>
+  </body>
+</html>
