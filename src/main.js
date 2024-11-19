@@ -62,9 +62,7 @@ router.post("/api/research", async (ctx) => {
     const researchPrompt = `Project Description: ${projectDescription}. 
       Research Type: ${researchType}. 
       Please provide research insights based on the project description and the selected research type. 
-      If the research type is 'Paper', focus on academic references, articles, and studies. 
-      If the research type is 'Artwork', focus on artistic references, styles, and visual inspirations.
-      Avoid using any special formatting like bold text. The description should use plain text only without any special formatting like bold or italic text, any markdown formatting.`;
+      Avoid using any special formatting like bold text. The description should use plain text only without any special formatting like bold or italic text, any markdown formatting. 500 words limite`;
 
     const researchResults = await promptGPT(researchPrompt, {
       max_tokens: 1000,  
@@ -121,42 +119,31 @@ router.post("/api/iteration", async (ctx) => {
 // API-4-Brainstorm
 router.post("/api/brainstorm", async (ctx) => {
   try {
-    const { projectProposal } = await ctx.request.body().value;
+    const { words, mediaType } = await ctx.request.body().value;
 
-    // 随机生成一个创意挑战
-    const challenges = [
-      "Design a project for a futuristic city that integrates nature with technology.",
-      "Create a product that helps reduce waste in everyday life.",
-      "Design a website or app to help people learn a new skill.",
-      "Propose a new way to teach children about sustainability.",
-      "Design a wearable product that makes daily life more efficient."
-    ];
+    // Build the prompt with user input
+    const brainstormPrompt = `Given the words: ${words.join(', ')}, and the selected media type: ${mediaType},
+    generate 5 unique creative ideas related to these inputs. The ideas should be relevant to the chosen media type and creative in nature.
+    Provide the ideas in plain text without any special formatting like bold or italic text, or markdown. 500 words limitation.`
 
-    // 随机选择一个挑战
-    const randomChallenge = challenges[Math.floor(Math.random() * challenges.length)];
-
-    // 使用GPT生成反馈
-    const brainstormingPrompt = `Challenge: ${randomChallenge}. 
-    Project Proposal: ${projectProposal}.
-    Please provide feedback on the project proposal and suggest improvements or next steps. 
-    Avoid using any special formatting like bold text. The description should use plain text only without any special formatting like bold or italic text, any markdown formatting.`;
-
-    const feedback = await promptGPT(brainstormingPrompt, {
-      max_tokens: 800,
-      temperature: 0.6,
+    // Use GPT to generate five ideas based on the user input
+    const ideas = await promptGPT(brainstormPrompt, {
+      max_tokens: 2000,
+      temperature: 0.7,
     });
 
-    ctx.response.body = { message: "Brainstorm challenge generated", challenge: randomChallenge, feedback };
+    ctx.response.body = { message: "Brainstorm ideas generated", ideas: ideas.trim().split('\n').slice(0, 5) };  // Splitting the ideas into an array and limiting to 5
   } catch (err) {
-    console.error("Error generating brainstorm feedback:", err);
+    console.error("Error generating brainstorm ideas:", err);
     ctx.response.status = 500;
     ctx.response.body = {
-      message: "Failed to generate brainstorm feedback due to server error",
+      message: "Failed to generate brainstorm ideas due to server error",
       details: err.message || err.toString(),
       path: ctx.request.url.pathname,
     };
   }
 });
+
 
 
 
