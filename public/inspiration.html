@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Inspiration Generator</title>
+  <link rel="stylesheet" href="style1.css">
+</head>
+<body>
+  <div class="container">
+    <h1>Inspiration Generator</h1>
+    <form id="inspirationForm">
+      <label for="projectDescription">Project Description:</label>
+      <textarea id="projectDescription" name="projectDescription" rows="3" placeholder="Describe your project briefly."></textarea>
+      
+      <label for="mediaPreference">Media Preference:</label>
+      <input id="mediaPreference" name="mediaPreference" list="mediaOptions" placeholder="What type of media will you be working with?">
+      <datalist id="mediaOptions">
+        <option value="Graphic Design">
+        <option value="Film">
+        <option value="Illustration">
+        <option value="Installation">
+        <option value="Animation">
+        <option value="UX Design">
+        <option value="Game Design">
+        <option value="Fashion Design">
+        <option value="No preference">
+      </datalist>
+      
+      <label for="stylePreference">Style Preference:</label>
+      <input id="stylePreference" name="stylePreference" list="styleOptions" placeholder="Do you have a preferred style or aesthetic?">
+      <datalist id="styleOptions">
+        <option value="Minimalist">
+        <option value="Futuristic">
+        <option value="Vintage">
+        <option value="Abstract">
+        <option value="Modern">
+        <option value="Retro">
+        <option value="No preference">
+      </datalist>
+
+      <label for="targetAudience">Target Audience:</label>
+      <input id="targetAudience" name="targetAudience" list="audienceOptions" placeholder="Who is your target audience?">
+      <datalist id="audienceOptions">
+        <option value="Children">
+        <option value="Students">
+        <option value="Families">
+        <option value="Educators">
+        <option value="Professionals">
+        <option value="No preference">
+      </datalist>
+      
+      <button type="submit">Generate Inspiration</button>
+    </form>
+
+    <div id="response" style="margin-top: 20px;"></div>
+  </div>
+
+  <script>
+    document.getElementById('inspirationForm').addEventListener('submit', async (event) => {
+      event.preventDefault();
+
+      const formData = {
+        projectDescription: document.getElementById('projectDescription').value,
+        mediaPreference: document.getElementById('mediaPreference').value,
+        stylePreference: document.getElementById('stylePreference').value,
+        targetAudience: document.getElementById('targetAudience').value,
+      };
+
+      const responseDiv = document.getElementById('response');
+      responseDiv.textContent = "Generating inspiration...";
+
+      try {
+        const response = await fetch('/api/inspiration', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(formData),
+        });
+
+        const result = await response.json();
+        responseDiv.textContent = result.inspiration || "No inspiration generated. Please refine your input.";
+      } catch (error) {
+        responseDiv.textContent = "Error generating inspiration. Please try again.";
+        console.error("Error:", error);
+      }
+    });
+  </script>
+</body>
+</html>

@@ -3,18 +3,22 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>ArtistryHub</title>
-    <link rel="stylesheet" href="/style.css" />
+    <title>Welcome to ArtistryHub!</title>
+    <link rel="stylesheet" href="styles.css">
+
   </head>
   <body>
-    <div class="container">
-      <h1>Welcome to ArtistryHub</h1>
-      <div class="button-container">
-        <button onclick="window.location.href='/get-inspiration'">Get Inspiration</button>
-        <button onclick="window.location.href='/research'">Research</button>
-        <button onclick="window.location.href='/iteration'">Iteration</button>
-        <button onclick="window.location.href='/brainstorm'">Brainstorm</button>
-      </div>
+    <div class="container" style="position: relative; z-index: 100;">
+      <h1>Welcome to ArtistryHub!</h1>
+      <ul>
+          <li><a href="inspiration.html">Inspiration Generator</a><div class="description">Get creative ideas for your design project.</div></li>
+          <li><a href="research.html">Research Assistant</a><div class="description">Access relevant research and insights for your design.</div></li>
+          <li><a href="iteration.html">Creative Critique</a><div class="description">Receive feedback to improve your design.</div></li>
+          <li><a href="brainstrom.html">Brainstorm Lab</a><div class="description">Explore creative ideas and directions.</div></li>   
+          <li><a href="productdesign.html">Concept Crafter</a><div class="description">Create a product design draft based on your goals.</div></li>     
+      </ul>
     </div>
+    <script src="main.js"></script>
+
   </body>
-</html>
+  </html>

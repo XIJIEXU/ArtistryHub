@@ -1,40 +1,57 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Get Inspiration</title>
-    <link rel="stylesheet" href="/style.css" />
-  </head>
-  <body>
-    <div class="container">
-      <h1>Get Artistic Inspiration</h1>
-      <form id="inspirationForm">
-        <input type="text" id="topic" placeholder="Enter art topic" required />
-        <input type="text" id="style" placeholder="Enter art style" required />
-        <input type="text" id="media" placeholder="Enter media type" required />
-        <button type="submit">Generate Inspiration</button>
-      </form>
-      <div id="inspiration"></div>
-    </div>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Design Research Assistant</title>
+  <link rel="stylesheet" href="style2.css">
+</head>
+<body>
+  <div class="container">
+    <h1>Design Research Assistant</h1>
+    <form id="researchForm">
+      <label for="projectDescription">Project Description:</label>
+      <textarea id="projectDescription" name="projectDescription" rows="4" placeholder="Briefly describe your project, e.g., website design, art installation, etc."></textarea>
+      
+      <label for="researchType">Research Type:</label>
+      <select id="researchType" name="researchType">
+        <option value="Paper">Paper</option>
+        <option value="Related Artwork">Artwork</option>
+      </select>
+      
+      <button type="submit">Generate Research</button>
+    </form>
 
-    <script>
-      document.getElementById("inspirationForm").addEventListener("submit", async (e) => {
-        e.preventDefault();
-        const topic = document.getElementById("topic").value;
-        const style = document.getElementById("style").value;
-        const media = document.getElementById("media").value;
+    <div id="response" style="margin-top: 20px;"></div>
+  </div>
 
-        if (!topic || !style || !media) {
-          alert("Please fill out all fields!");
-          return;
-        }
+  <script>
+    document.getElementById('researchForm').addEventListener('submit', async (event) => {
+      event.preventDefault();
 
-        const response = await fetch(`/api/inspiration?topic=${encodeURIComponent(topic)}&style=${encodeURIComponent(style)}&media=${encodeURIComponent(media)}`);
-        const data = await response.json();
+      const formData = {
+        projectDescription: document.getElementById('projectDescription').value,
+        researchType: document.getElementById('researchType').value,
+        targetAudience: document.getElementById('targetAudience').value,
+      };
 
-        document.getElementById("inspiration").innerText = `Inspiration: ${data.inspiration}`;
-      });
-    </script>
-  </body>
+      const responseDiv = document.getElementById('response');
+      responseDiv.textContent = "Generating research...";
+
+      try {
+        const response = await fetch('/api/research', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(formData),
+        });
+
+        const result = await response.json();
+        responseDiv.textContent = result.researchResults || "No research generated. Please refine your input.";
+      } catch (error) {
+        responseDiv.textContent = "Error generating research. Please try again.";
+        console.error("Error:", error);
+      }
+    });
+  </script>
+</body>
 </html>

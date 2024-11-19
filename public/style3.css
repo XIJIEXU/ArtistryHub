@@ -1,0 +1,121 @@
+/* General body styles */
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #f4f4f9; /* Light background color */
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+/* Container styles */
+.container {
+  background-color: #ffffff;
+  padding: 30px 40px;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 600px;
+  box-sizing: border-box;
+  text-align: center;
+}
+
+/* Title styles */
+h1 {
+  font-size: 2rem;
+  color: #333;
+  margin-bottom: 30px;
+  font-weight: bold;
+  letter-spacing: 1px;
+}
+
+/* Form styles */
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* Label styles */
+label {
+  font-size: 1rem;
+  color: #444;
+  text-align: left;
+  margin-bottom: 5px;
+}
+
+/* Textarea and input fields */
+textarea, input[type="text"], select {
+  font-size: 1rem;
+  padding: 12px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  width: 100%;
+  box-sizing: border-box;
+  outline: none;
+  transition: border 0.3s ease;
+}
+
+/* Focus effect */
+textarea:focus, input[type="text"]:focus, select:focus {
+  border-color: #4CAF50;
+}
+
+/* Button styles */
+button {
+  padding: 14px 24px;
+  font-size: 1rem;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* Button hover effect */
+button:hover {
+  background-color: #45a049;
+  transform: translateY(-2px);
+}
+
+/* Button active effect */
+button:active {
+  transform: translateY(0);
+}
+
+/* Response message styling */
+#response {
+  margin-top: 30px;
+  font-size: 1.2rem;
+  color: #333;
+  background-color: #f9f9f9;
+  padding: 15px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  word-wrap: break-word;
+  max-width: 100%;
+}
+
+/* Responsive design for small screens */
+@media (max-width: 600px) {
+  .container {
+    padding: 20px 15px;
+  }
+
+  h1 {
+    font-size: 1.5rem;
+  }
+
+  button {
+    font-size: 0.9rem;
+  }
+
+  textarea, input[type="text"], select {
+    font-size: 0.9rem;
+  }
+}
