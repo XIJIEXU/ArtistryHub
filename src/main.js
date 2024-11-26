@@ -22,15 +22,16 @@ router.post("/api/inspiration", async (ctx) => {
     const { keyWords, tools, projectUse } = await ctx.request.body().value;
 
     // Generate prompt based on user input
-    const directionsPrompt = `Gengerate three different unique design project ideas based on the following: 
-    Key Words: ${keyWords}, 
-    Tools: ${tools}, 
-    Project Use: ${projectUse}.
-    Limit the total words to 1000.`;
+    const directionsPrompt = `Use Tools: ${tools} and base on keyWords: ${keyWords} 
+    projectUse: ${projectUse} to generate three totally different design project ideas, control total words under 700.
+    Including project main idea, project name, and how to use the tool. 
+    Avoid using any special formatting like bold text. The description should use plain text only without any special formatting like bold or italic text, 
+    any markdown formatting.`;
+
 
     const projectDirections = await promptGPT(directionsPrompt, {
-      max_tokens: 3000,
-      temperature: 0.7,
+      max_tokens: 800,
+      temperature: 0.4,
     });
 
     // Send the response with the generated directions
