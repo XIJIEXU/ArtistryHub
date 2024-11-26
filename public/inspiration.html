@@ -10,14 +10,20 @@
     <div class="container">
         <h1>Idea Spark</h1>
         <form id="projectForm">
-            <label for="keyWords">Enter Keywords (comma separated):</label>
-            <input type="text" id="keyWords" name="keyWords" placeholder="eg.subway, dreamlike, interesting, sky" required />
+            <label for="keyWord1">Enter Keyword 1:</label>
+            <input type="text" id="keyWord1" name="keyWord1" placeholder="eg. subway,sky,car" required />
+
+            <label for="keyWord2">Enter Keyword 2:</label>
+            <input type="text" id="keyWord2" name="keyWord2" placeholder="eg. dreamlike,fantastic,surreal" required />
+
+            <label for="keyWord3">Enter Keyword 3:</label>
+            <input type="text" id="keyWord3" name="keyWord3" placeholder="eg. immersive,journey,game" required />
 
             <label for="tools">Choose Tools (comma separated):</label>
-            <input type="text" id="tools" name="tools" placeholder="eg.Unity, Touch Designer, Unreal Engine" required />
+            <input type="text" id="tools" name="tools" placeholder="e.g., Unity, Touch Designer, Unreal Engine" required />
 
             <label for="projectUse">Project Use:</label>
-            <input type="text" id="projectUse" name="projectUse" placeholder="eg.playful, entertaining, educational" required />
+            <input type="text" id="projectUse" name="projectUse" placeholder="e.g., playful, entertaining, educational" required />
 
             <button type="submit">Generate Project Directions</button>
         </form>
@@ -30,7 +36,11 @@
             event.preventDefault();
 
             const formData = {
-                keyWords: document.getElementById('keyWords').value,
+                keyWords: [
+                    document.getElementById('keyWord1').value,
+                    document.getElementById('keyWord2').value,
+                    document.getElementById('keyWord3').value
+                ].join(', '), // Join all keywords into a comma-separated string
                 tools: document.getElementById('tools').value,
                 projectUse: document.getElementById('projectUse').value,
             };
