@@ -22,11 +22,11 @@ router.post("/api/inspiration", async (ctx) => {
     const { keyWords, tools, projectUse } = await ctx.request.body().value;
 
     // Generate prompt based on user input
-    const directionsPrompt = `Provide three different unique design project ideas based on the following: 
+    const directionsPrompt = `Gengerate three different unique design project ideas based on the following: 
     Key Words: ${keyWords}, 
     Tools: ${tools}, 
     Project Use: ${projectUse}.
-    Limit the total words to 500.`;
+    Limit the total words to 1000.`;
 
     const projectDirections = await promptGPT(directionsPrompt, {
       max_tokens: 3000,
