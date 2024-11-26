@@ -29,7 +29,7 @@ router.post("/api/inspiration", async (ctx) => {
     Limit the total words to 500.`;
 
     const projectDirections = await promptGPT(directionsPrompt, {
-      max_tokens: 500,
+      max_tokens: 3000,
       temperature: 0.7,
     });
 
