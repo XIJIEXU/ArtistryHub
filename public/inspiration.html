@@ -1,89 +1,59 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Inspiration Generator</title>
-  <link rel="stylesheet" href="style1.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Idea Spark</title>
+    <link rel="stylesheet" href="style1.css">
 </head>
 <body>
-  <div class="container">
-    <h1>Inspiration Generator</h1>
-    <form id="inspirationForm">
-      <label for="projectDescription">Project Description:</label>
-      <textarea id="projectDescription" name="projectDescription" rows="3" placeholder="Describe your project briefly."></textarea>
-      
-      <label for="mediaPreference">Media Preference:</label>
-      <input id="mediaPreference" name="mediaPreference" list="mediaOptions" placeholder="What type of media will you be working with?">
-      <datalist id="mediaOptions">
-        <option value="Graphic Design">
-        <option value="Film">
-        <option value="Illustration">
-        <option value="Installation">
-        <option value="Animation">
-        <option value="UX Design">
-        <option value="Game Design">
-        <option value="Fashion Design">
-        <option value="No preference">
-      </datalist>
-      
-      <label for="stylePreference">Style Preference:</label>
-      <input id="stylePreference" name="stylePreference" list="styleOptions" placeholder="Do you have a preferred style or aesthetic?">
-      <datalist id="styleOptions">
-        <option value="Minimalist">
-        <option value="Futuristic">
-        <option value="Vintage">
-        <option value="Abstract">
-        <option value="Modern">
-        <option value="Retro">
-        <option value="No preference">
-      </datalist>
+    <div class="container">
+        <h1>Idea Spark</h1>
+        <form id="projectForm">
+            <label for="keyWords">Enter Keywords (comma separated):</label>
+            <input type="text" id="keyWords" name="keyWords" placeholder="e.g., subway, dreamlike, interesting, sky" required />
 
-      <label for="targetAudience">Target Audience:</label>
-      <input id="targetAudience" name="targetAudience" list="audienceOptions" placeholder="Who is your target audience?">
-      <datalist id="audienceOptions">
-        <option value="Children">
-        <option value="Students">
-        <option value="Families">
-        <option value="Educators">
-        <option value="Professionals">
-        <option value="No preference">
-      </datalist>
-      
-      <button type="submit">Generate Inspiration</button>
-    </form>
+            <label for="tools">Choose Tools (comma separated):</label>
+            <input type="text" id="tools" name="tools" placeholder="e.g., Unity, Graphic Design, Unreal Engine" required />
 
-    <div id="response" style="margin-top: 20px;"></div>
-  </div>
+            <label for="projectUse">Project Use:</label>
+            <input type="text" id="projectUse" name="projectUse" placeholder="e.g., playful, entertaining, educational" required />
 
-  <script>
-    document.getElementById('inspirationForm').addEventListener('submit', async (event) => {
-      event.preventDefault();
+            <button type="submit">Generate Project Directions</button>
+        </form>
 
-      const formData = {
-        projectDescription: document.getElementById('projectDescription').value,
-        mediaPreference: document.getElementById('mediaPreference').value,
-        stylePreference: document.getElementById('stylePreference').value,
-        targetAudience: document.getElementById('targetAudience').value,
-      };
+        <div id="directions" style="margin-top: 20px;"></div>
+    </div>
 
-      const responseDiv = document.getElementById('response');
-      responseDiv.textContent = "Generating inspiration...";
+    <script>
+        document.getElementById('projectForm').addEventListener('submit', async (event) => {
+            event.preventDefault();
 
-      try {
-        const response = await fetch('/api/inspiration', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(formData),
+            const formData = {
+                keyWords: document.getElementById('keyWords').value,
+                tools: document.getElementById('tools').value,
+                projectUse: document.getElementById('projectUse').value,
+            };
+
+            const directionsDiv = document.getElementById('directions');
+            directionsDiv.textContent = "Generating project directions...";
+
+            try {
+                const response = await fetch('/api/inspiration', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(formData),
+                });
+
+                const result = await response.json();
+                directionsDiv.innerHTML = `<h3>Generated Project Directions:</h3><ul>
+                    ${result.directions.map(direction => `<li>${direction}</li>`).join('')}
+                </ul>`;
+            } catch (error) {
+                directionsDiv.textContent = "Error generating project directions. Please try again.";
+                console.error("Error:", error);
+            }
         });
-
-        const result = await response.json();
-        responseDiv.textContent = result.inspiration || "No inspiration generated. Please refine your input.";
-      } catch (error) {
-        responseDiv.textContent = "Error generating inspiration. Please try again.";
-        console.error("Error:", error);
-      }
-    });
-  </script>
+    </script>
 </body>
 </html>
