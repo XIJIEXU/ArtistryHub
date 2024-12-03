@@ -1,69 +1,112 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Idea Spark</title>
-    <link rel="stylesheet" href="style1.css">
-</head>
-<body>
+    <link rel="stylesheet" href="style1.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300..900&family=Lora:wght@300..700&display=swap"
+      rel="stylesheet"
+    />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  </head>
+  <body>
+    <!-- 3D Particle Animation Canvas -->
+    <canvas id="particleCanvas"></canvas>
+
     <div class="container">
-        <h1>Idea Spark</h1>
-        <form id="projectForm">
-            <label for="keyWord1">Enter Keyword 1:</label>
-            <input type="text" id="keyWord1" name="keyWord1" placeholder="eg. subway,sky,car" required />
+      <h1>Idea Spark</h1>
+      <form id="projectForm">
+        <label for="keyWord1">Enter Keywords:</label>
+        <input
+          type="text"
+          id="keyWord1"
+          name="keyWord1"
+          placeholder="eg.subway, new york, sky, homeless"
+          required
+        />
 
-            <label for="keyWord2">Enter Keyword 2:</label>
-            <input type="text" id="keyWord2" name="keyWord2" placeholder="eg. dreamlike,fantastic,surreal" required />
+        <label for="keyWord2">Prefered Style:</label>
+        <input
+          type="text"
+          id="keyWord2"
+          name="keyWord2"
+          placeholder="eg. dreamlike, surreal, fantastic"
+          required
+        />
 
-            <label for="keyWord3">Enter Keyword 3:</label>
-            <input type="text" id="keyWord3" name="keyWord3" placeholder="eg. immersive,journey,game" required />
+        <label for="keyWord3">Prefered Function:</label>
+        <input
+          type="text"
+          id="keyWord3"
+          name="keyWord3"
+          placeholder="eg. immersive, story telling, non-linear"
+          required
+        />
 
-            <label for="tools">Choose Tools (comma separated):</label>
-            <input type="text" id="tools" name="tools" placeholder="e.g., Unity, Touch Designer, Unreal Engine" required />
+        <label for="tools">Choose tools:</label>
+        <input
+          type="text"
+          id="tools"
+          name="tools"
+          placeholder="eg. Unity, Touch Designer, Unreal Engine, Photoshop"
+          required
+        />
 
-            <label for="projectUse">Project Use:</label>
-            <input type="text" id="projectUse" name="projectUse" placeholder="e.g., playful, entertaining, educational" required />
+        <label for="projectUse">Project Use:</label>
+        <input
+          type="text"
+          id="projectUse"
+          name="projectUse"
+          placeholder="e.g. playful, entertaining, educational, having fun, exhibition"
+          required
+        />
 
-            <button type="submit">Generate Project Directions</button>
-        </form>
+        <button type="submit">Generate Project Directions</button>
+      </form>
 
-        <div id="directions" style="margin-top: 20px;"></div>
+      <div id="directions" style="margin-top: 20px;"></div>
     </div>
 
     <script>
-        document.getElementById('projectForm').addEventListener('submit', async (event) => {
-            event.preventDefault();
+      document
+        .getElementById("projectForm")
+        .addEventListener("submit", async (event) => {
+          event.preventDefault();
 
-            const formData = {
-                keyWords: [
-                    document.getElementById('keyWord1').value,
-                    document.getElementById('keyWord2').value,
-                    document.getElementById('keyWord3').value
-                ].join(', '), // Join all keywords into a comma-separated string
-                tools: document.getElementById('tools').value,
-                projectUse: document.getElementById('projectUse').value,
-            };
+          const formData = {
+            keyWord1: document.getElementById("keyWord1").value,
+            keyWord2: document.getElementById("keyWord2").value,
+            keyWord3: document.getElementById("keyWord3").value,
+            tools: document.getElementById("tools").value,
+            projectUse: document.getElementById("projectUse").value,
+          };
 
-            const directionsDiv = document.getElementById('directions');
-            directionsDiv.textContent = "Generating project directions...";
+          const directionsDiv = document.getElementById("directions");
+          directionsDiv.textContent = "Generating project directions...";
 
-            try {
-                const response = await fetch('/api/inspiration', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(formData),
-                });
+          try {
+            const response = await fetch("/api/inspiration", {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify(formData),
+            });
 
-                const result = await response.json();
-                directionsDiv.innerHTML = `<h3>Generated Project Directions:</h3><ul>
-                    ${result.directions.map(direction => `<li>${direction}</li>`).join('')}
-                </ul>`;
-            } catch (error) {
-                directionsDiv.textContent = "Error generating project directions. Please try again.";
-                console.error("Error:", error);
-            }
+            const result = await response.json();
+            directionsDiv.innerHTML = `<h3>Generated Project Directions:</h3><ul>
+              ${result.projectDirections.map((direction) => `<li>${direction}</li>`).join("")}
+            </ul>`;
+          } catch (error) {
+            directionsDiv.textContent =
+              "Error generating project directions. Please try again.";
+            console.error("Error:", error);
+          }
         });
     </script>
-</body>
+
+    
+  </body>
 </html>

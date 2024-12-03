@@ -1,135 +1,137 @@
-/* Reset some basic styles */
+/* Reset and general styles */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
-/* General body styles */
-body {
+/* Body and page layout */
+body,
+html {
+  height: 100%; /* Ensure the full height */
+  width: 100%;  /* Ensure the full width */
   font-family: 'Poppins', sans-serif;
-  background: linear-gradient(135deg, #6D5BFF, #4E94FF);
-  color: #333;
-  height: 100vh;
   display: flex;
-  justify-content: center;
-  align-items: center;
+  align-items: center;  /* Centers vertically */
+  justify-content: center;  /* Centers horizontally */
+  background: linear-gradient(135deg, #0f1d42, #212e61);  /* Deep blue-black gradient */
+  color: #fff;
+  padding: 0;  /* Ensure no extra padding */
+  margin: 0;   /* Ensure no extra margin */
 }
 
-/* Container styles */
+/* Container for the form */
 .container {
-  background-color: white;
+  background-color: #fff;
   padding: 40px;
   border-radius: 12px;
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+  max-width: 650px;
   width: 100%;
-  max-width: 600px;
   text-align: center;
-  transition: all 0.3s ease-in-out;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  align-items: center;  /* Centers the content inside the container */
 }
 
-/* Hover effect on container */
-.container:hover {
-  transform: translateY(-10px);
+/* Styling for the form labels */
+label {
+  display: block;
+  text-align: left;
+  font-size: 16px;
+  font-weight: 600;
+  margin-bottom: 5px; /* Adds space between the label and input */
+  color: #333;
+  width: 100%; /* Ensures the label stretches across */
+}
+
+/* Remove space between input fields */
+input,
+button {
+  width: 100%;
+  padding: 12px 16px;
+  margin-top: 0; /* Remove top margin between input and label */
+  margin-bottom: 10px; /* Optional: add a small space below each input */
+  border-radius: 8px;
+  border: 1px solid #ddd;
+  font-size: 16px;
+  transition: all 0.3s ease;
+}
+
+input:focus,
+button:focus {
+  border-color: #6a51ff;
+  outline: none;
+  box-shadow: 0 0 5px rgba(106, 81, 255, 0.3);
+}
+
+button {
+  background-color: #007bff;  /* Modern blue */
+  color: white;
+  border: none;
+  cursor: pointer;
+  font-weight: 600;
+  transition: background-color 0.3s ease;
+}
+
+button:hover {
+  background-color: #0056b3; /* Darker blue on hover */
 }
 
 /* Title styles */
 h1 {
   font-size: 2.5rem;
+  font-weight: 700;
+  color: #003366;  /* Deep blue for the title */
   margin-bottom: 20px;
-  color: #4E94FF;
-  font-weight: 600;
-  letter-spacing: 1px;
 }
 
-/* Form styles */
-form {
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
-}
-
-/* Label styles */
-label {
-  font-size: 1rem;
-  color: #444;
-  text-align: left;
-  margin-bottom: 5px;
-}
-
-/* Input and select styles */
-input[type="text"], input[type="email"], select {
-  padding: 12px;
-  font-size: 1rem;
-  border: 2px solid #ccc;
-  border-radius: 8px;
-  outline: none;
-  transition: border 0.3s ease-in-out;
-}
-
-/* Focus effect on input */
-input:focus, select:focus {
-  border-color: #4E94FF;
-}
-
-/* Button styles */
-button {
-  padding: 15px 30px;
-  font-size: 1.2rem;
-  background-color: #4E94FF;
-  color: white;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: background-color 0.3s ease, transform 0.2s ease;
-}
-
-/* Button hover effect */
-button:hover {
-  background-color: #2a6fd8;
-  transform: translateY(-2px);
-}
-
-/* Button active effect */
-button:active {
-  transform: translateY(0);
-}
-
-/* Response message styles */
+/* Generated directions section */
 #directions {
-  margin-top: 30px;
-  font-size: 1.1rem;
-  color: #333;
-  background-color: #f4f6f9;
-  padding: 15px;
+  margin-top: 20px;
+  font-family: 'Lora', serif;
+  font-size: 16px;
+  text-align: left;
+  color: #444;
+  max-height: 400px;
+  overflow-y: auto;
+  padding: 10px;
+  background: #f9f9f9;
   border-radius: 8px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-  word-wrap: break-word;
-  max-width: 100%;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
 }
 
-/* Responsive design */
-@media (max-width: 768px) {
-  .container {
-      padding: 30px;
-  }
+h3 {
+  font-size: 1.8rem;
+  color: #003366;
+}
 
-  h1 {
-      font-size: 2rem;
-  }
+/* Modal styles */
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+}
 
-  button {
-      font-size: 1rem;
-      padding: 12px 24px;
-  }
+.modal-content {
+  background-color: white;
+  margin: 15% auto;
+  padding: 20px;
+  border-radius: 12px;
+  text-align: center;
+  width: 80%;
+  max-width: 600px;
+}
 
-  input[type="text"], select {
-      font-size: 0.9rem;
-      padding: 10px;
-  }
-
-  #directions {
-      font-size: 1rem;
-      padding: 10px;
-  }
+.center-text {
+  font-family: 'Lora', serif;
+  font-size: 18px;
+  color: #333;
+  margin-top: 20px;
 }

@@ -1,4 +1,4 @@
-/* Reset some basic styles */
+/* Reset and general styles */
 * {
   margin: 0;
   padding: 0;
@@ -8,55 +8,62 @@
 /* General body styles */
 body {
   font-family: 'Poppins', sans-serif;
-  background: linear-gradient(135deg, #6D5BFF, #4E94FF);
-  color: #333;
+  background: #121212; /* Dark background */
+  color: #fff;
   height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
+  position: relative;
+}
+
+/* 3D Particle Canvas Background */
+canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: -1;
+  width: 100%;
+  height: 100%;
 }
 
 /* Container styles */
 .container {
-  background-color: white;
+  background-color: #1e1e1e; /* Modern, dark gray background */
   padding: 40px;
   border-radius: 12px;
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-  width: 100%;
-  max-width: 800px;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
   text-align: center;
-  transition: all 0.3s ease-in-out;
-}
-
-/* Hover effect on container */
-.container:hover {
-  transform: translateY(-10px);
+  max-width: 800px;
+  width: 100%;
+  z-index: 1;
 }
 
 /* Title styles */
 h1 {
   font-size: 3rem;
   margin-bottom: 20px;
-  color: #4E94FF;
-  font-weight: 600;
-  letter-spacing: 1px;
+  color: #4e94ff; /* Blue color for the title */
+  font-weight: bold;
 }
 
 /* Description styles */
 .description {
   font-size: 1.2rem;
   margin-bottom: 30px;
-  color: #444;
+  color: #b0b0b0; /* Gray color for the description text */
   line-height: 1.6;
+  max-width: 600px;
+  margin: 0 auto;
 }
 
 /* Card styles */
 .card {
-  background-color: #f9f9f9;
+  background-color: #2a2a2a; /* Darker gray background for the card */
   border-radius: 8px;
   padding: 20px;
   margin-top: 30px;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
   transition: all 0.3s ease;
 }
 
@@ -68,7 +75,7 @@ h1 {
 /* Card heading */
 .card h2 {
   font-size: 2rem;
-  color: #333;
+  color: #fff; /* White text for card heading */
   margin-bottom: 10px;
 }
 
@@ -77,7 +84,7 @@ h1 {
   display: inline-block;
   padding: 15px 30px;
   font-size: 1.2rem;
-  background-color: #4E94FF;
+  background-color: #007bff; /* Blue color for the button */
   color: white;
   border: none;
   border-radius: 8px;
@@ -89,13 +96,8 @@ h1 {
 
 /* Button hover effect */
 .cta-button:hover {
-  background-color: #2a6fd8;
+  background-color: #0056b3; /* Darker blue on hover */
   transform: translateY(-2px);
-}
-
-/* Button active effect */
-.cta-button:active {
-  transform: translateY(0);
 }
 
 /* Responsive design */
@@ -105,11 +107,16 @@ h1 {
   }
 
   h1 {
-    font-size: 2.2rem;
+    font-size: 2.5rem;
   }
 
-  .cta-button {
+  button {
     font-size: 1rem;
-    padding: 12px 24px;
+    padding: 12px 20px;
+  }
+
+  input {
+    font-size: 1rem;
+    padding: 12px 18px;
   }
 }
